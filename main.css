@@ -1,0 +1,67 @@
+#btnNew
+    {
+        width:120px;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 20px;
+        font-family: 'Courier New', Courier, monospace;
+        background: #f0d2d7;
+        float: left;
+        margin-right: 10px;
+    }
+.box
+{
+    width:40px;
+    height: 40px;
+    border: 1px solid black;
+    cursor:pointer;
+    display:inline-block
+}
+.yellow
+{
+    background: #fff5b3;
+}
+.pink
+{
+    background: #ffccff;
+}
+.peach{
+    background: #ffd6cc;
+}
+.blue{
+    background: #84dcf4;
+}
+
+.sticky{
+    width: 200px;
+    height: 180px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px;
+    /* horizontal, vertical, blur distance color*/
+    box-shadow: 6px 6px 3px gray;
+    cursor: all-scroll;
+    overflow: hidden;
+}
+
+.sticky textarea{
+    width: 95%;
+    height: 95%;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    border: none;
+    background: transparent;
+    resize: none;
+    position: absolute;
+
+}
+
+.sticky textarea:focus{
+    outline: none;
+}
+
+.ui-icon-close{
+    float: right;
+    cursor: pointer;
+}
