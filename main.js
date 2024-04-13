@@ -1,16 +1,19 @@
+//to - do 
+//change container size
+//save position 
+//accesability 
+//clean code
 $(document).ready(function(){
 
     var currentElement = "";
     
     getNotes();
-    // saveNotes();
     //add new note
     $("#btnNew").click(function(){
         //create sticky note - div element, class sticky, id sticky + increment id, text area - jquery draggable
         var id = Math.floor(Math.random() * 100000);
         var newNote = $("<div class='sticky yellow' id='sticky" + id + "'><textarea>Add Your Note</textarea><span class ='ui-icon ui-icon-close'></span></div>").resizable().draggable({stack:".sticky"});
         currentElement = "sticky" + id;
-        id++;
         // append to container
         $("#container").append(newNote);
         //set positioning 
@@ -37,7 +40,7 @@ $(document).ready(function(){
         saveNotes();
     });
 
-    $("#container").on("input", "textarea", function(){         
+    $("#container").on("input", "textarea", function(){   //on text change - save note 
         saveNotes();
     });
     
