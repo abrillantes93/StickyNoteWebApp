@@ -3,7 +3,7 @@ $(document).ready(function(){
     var currentElement = "";
     
     getNotes();
-    saveNotes();
+    // saveNotes();
     //add new note
     $("#btnNew").click(function(){
         //create sticky note - div element, class sticky, id sticky + increment id, text area - jquery draggable
@@ -26,7 +26,6 @@ $(document).ready(function(){
 
     //Event delgation 
     $("#container").on("click", ".sticky", function(){    //parent -> child (sticky) - change currentElement to selected sticky
-        saveNotes();
         currentElement = $(this).attr("id")
 
     });
@@ -37,8 +36,14 @@ $(document).ready(function(){
         $(this).parent().css("z-index", (maximum+1))         //set z-index maximum + 1
         saveNotes();
     });
+
+    $("#container").on("input", "textarea", function(){         
+        saveNotes();
+    });
+    
     $("#container").on("click", "span.ui-icon-close", function(){    //click textarea -> move sticky to top of container
         $(this).parent().remove(); //select parent element -> remove
+        // localStorage.removeItem(currentElement);
         saveNotes();
 
     });
