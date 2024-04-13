@@ -1,4 +1,4 @@
-//to - do 
+//to do 
 //change container size
 //save position 
 //accesability 
@@ -96,8 +96,8 @@ $(document).ready(function(){
     }
     //save notes to local storage 
     function saveNotes() {
-        var stickyNotesData = $("#container").html();
-        localStorage.setItem("stickyNotes", stickyNotesData)
+        var stickyNotesData = $("#container").html(); //save html data of container
+        localStorage.setItem("stickyNotes", stickyNotesData) //save 
         $(".sticky textarea").each(function() { //each sticky textarea-> save id and text
             var noteId = $(this).parent().attr("id");
             var noteText = $(this).val();
