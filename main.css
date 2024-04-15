@@ -43,18 +43,20 @@
     box-shadow: 6px 6px 3px gray;
     cursor: all-scroll;
     overflow: hidden;
+    position: relative;
 }
 
 .sticky textarea{
-    width: 95%;
-    height: 95%;
+    position: absolute;
+    top: 30px; 
+    left: 5px; 
+    width: calc(100% - 10px);
+    height: calc(100% - 35px); 
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
     border: none;
     background: transparent;
     resize: none;
-    position: absolute;
-
 }
 
 .sticky textarea:focus{
@@ -64,4 +66,7 @@
 .ui-icon-close{
     float: right;
     cursor: pointer;
+    position: absolute; 
+    top: 5px; 
+    left: 5px; 
 }

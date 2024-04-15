@@ -1,6 +1,7 @@
 //to do 
 //change container size
 //save position 
+//trash can?
 //accesability 
 //clean code
 $(document).ready(function(){
@@ -8,16 +9,17 @@ $(document).ready(function(){
     var currentElement = "";
     
     getNotes();
+    //Event delgation 
     //add new note
     $("#btnNew").click(function(){
         //create sticky note - div element, class sticky, id sticky + increment id, text area - jquery draggable
-        var id = Math.floor(Math.random() * 100000);
-        var newNote = $("<div class='sticky yellow' id='sticky" + id + "'><textarea>Add Your Note</textarea><span class ='ui-icon ui-icon-close'></span></div>").resizable().draggable({stack:".sticky"});
+        var id = Math.floor(Math.random() * 100000); //random id
+        var newNote = $("<div class='sticky yellow' id='sticky" + id + "'><button class= 'ui class ui-icon-close'>X</button><textarea>Add your text</textarea></div>").resizable().draggable({stack:".sticky"});
         currentElement = "sticky" + id;
         // append to container
         $("#container").append(newNote);
         //set positioning 
-        var left = $(this).position().left;
+        var left = $(this).position().left; 
         var top = $(this).position().top + 50;
         $(".sticky").each(function(){
             $(this).css({left:left + "px", top:top + "px", position:"absolute"});
@@ -27,7 +29,7 @@ $(document).ready(function(){
         saveNotes();
     });
 
-    //Event delgation 
+    
     $("#container").on("click", ".sticky", function(){    //parent -> child (sticky) - change currentElement to selected sticky
         currentElement = $(this).attr("id")
 
@@ -44,7 +46,7 @@ $(document).ready(function(){
         saveNotes();
     });
     
-    $("#container").on("click", "span.ui-icon-close", function(){    //click textarea -> move sticky to top of container
+    $("#container").on("click", "button.ui-icon-close", function(){    //click ui-icon -> delete
         $(this).parent().remove(); //select parent element -> remove
         // localStorage.removeItem(currentElement);
         saveNotes();
@@ -66,7 +68,7 @@ $(document).ready(function(){
 
 //Helper Functions
     function getMax(items){ //loop thru stickys, get max z-index value
-        var max = -Infinity;
+        var max = -Infinity; //intialize max to smallest possible
         $(items).each(function(){
                 var z =  $(this).css("z-index");
                 if (isNaN(z))
@@ -85,7 +87,7 @@ $(document).ready(function(){
         if (stickyNotesData) { //if stickyNotesData is set
             $("#container").html(stickyNotesData); //pass data thru container
             
-            $(".sticky").each(function() { //each index -> set sticky element with  
+            $(".sticky").each(function() { //for each sticky -> get Id -> load text
                 var noteId = $(this).attr("id");
                 var noteText = localStorage.getItem(noteId);
                 $(this).find("textarea").val(noteText);
