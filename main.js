@@ -1,20 +1,22 @@
 //to do 
-//change container size
-//save position 
-//trash can?
-//accesability 
-//clean code
+    //position reset on new note    
+    //accesability - new notes being made off screen
+    //clean code
 $(document).ready(function(){
 
     var currentElement = "";
     
     getNotes();
     //Event delgation 
-    //add new note
-    $("#btnNew").click(function(){
-        //create sticky note - div element, class sticky, id sticky + increment id, text area - jquery draggable
+    $("#btnNew").click(function(){     //add new note
         var id = Math.floor(Math.random() * 100000); //random id
-        var newNote = $("<div class='sticky yellow' id='sticky" + id + "'><button class= 'ui class ui-icon-close'>X</button><textarea>Add your text</textarea></div>").resizable().draggable({stack:".sticky"});
+        //create sticky note - div element, class sticky, id sticky + increment id, text area - jquery draggable
+        var newNote = $("<div class='sticky yellow' id='sticky" + id + 
+            "'><button class= 'ui class ui-icon-close'>X</button><textarea>Add your text</textarea></div>").resizable().draggable({
+                stack: ".sticky",
+                stop: function(event, ui) {
+                    saveNotes(); // save the notes after dragging
+                }});
         currentElement = "sticky" + id;
         // append to container
         $("#container").append(newNote);
@@ -48,7 +50,7 @@ $(document).ready(function(){
     
     $("#container").on("click", "button.ui-icon-close", function(){    //click ui-icon -> delete
         $(this).parent().remove(); //select parent element -> remove
-        // localStorage.removeItem(currentElement);
+        localStorage.removeItem(currentElement);
         saveNotes();
 
     });
@@ -61,6 +63,15 @@ $(document).ready(function(){
             $("#" + currentElement).removeClass();//remove exsiting class - allows to change color 
             
             $("#" + currentElement).addClass("sticky " + color); // add sticky + color class
+            saveNotes();
+        }
+    });
+    
+    $("#trashCan").droppable({
+        accept: ".sticky", 
+        tolerance: "touch", 
+        drop: function(event, ui) {
+            ui.draggable.remove(); // remove the dragged sticky note from the DOM
             saveNotes();
         }
     });
