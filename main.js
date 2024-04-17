@@ -5,7 +5,7 @@
 $(document).ready(function(){
 
     var currentElement = "";
-    
+
     getNotes();
     //Event delgation 
     $("#btnNew").click(function(){     //add new note
@@ -16,21 +16,30 @@ $(document).ready(function(){
                 stack: ".sticky",
                 stop: function(event, ui) {
                     saveNotes(); // save the notes after dragging
-                }});
-        currentElement = "sticky" + id;
-        // append to container
-        $("#container").append(newNote);
-        //set positioning 
-        var left = $(this).position().left; 
-        var top = $(this).position().top + 50;
-        $(".sticky").each(function(){
-            $(this).css({left:left + "px", top:top + "px", position:"absolute"});
-            left += 235;
+                }
+            });
 
+        // Append new note to container
+        $("#container").append(newNote);
+
+        var left = 0;
+        var top = 0;
+        $(".sticky").each(function() {
+            var notePosition = $(this).position();
+            left = Math.max(left, notePosition.left + $(this).outerWidth() + 20); // Add 20 for spacing
+            top = Math.max(top, notePosition.top); // Add 20 for spacing
         });
+
+        // Apply position to the new note
+        newNote.css({left: left, top: top, position: "absolute"});
+
+        // Save notes
+        saveNotes();
+
+        // Save notes
         saveNotes();
     });
-
+  
     
     $("#container").on("click", ".sticky", function(){    //parent -> child (sticky) - change currentElement to selected sticky
         currentElement = $(this).attr("id")
@@ -101,6 +110,7 @@ $(document).ready(function(){
             $(".sticky").each(function() { //for each sticky -> get Id -> load text
                 var noteId = $(this).attr("id");
                 var noteText = localStorage.getItem(noteId);
+            
                 $(this).find("textarea").val(noteText);
             });
             // Initialize draggable/resizbale functionality for loaded sticky notes
@@ -114,7 +124,8 @@ $(document).ready(function(){
         $(".sticky textarea").each(function() { //each sticky textarea-> save id and text
             var noteId = $(this).parent().attr("id");
             var noteText = $(this).val();
-            localStorage.setItem(noteId, noteText);
+            var notePosition  = $(this).parent().attr("style")
+            localStorage.setItem(noteId, noteText, notePosition);
         });
     }
 });
