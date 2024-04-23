@@ -1,7 +1,3 @@
-//to do 
-    //position reset on new note    
-    //accesability - new notes being made off screen
-    //clean code
 $(document).ready(function(){
 
     var currentElement = "";
@@ -33,10 +29,7 @@ $(document).ready(function(){
         // Apply position to the new note
         newNote.css({left: left, top: top, position: "absolute"});
 
-        // Save notes
-        saveNotes();
-
-        // Save notes
+       
         saveNotes();
     });
   
